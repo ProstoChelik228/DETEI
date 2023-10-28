@@ -1,0 +1,35 @@
+import telebot
+from telebot import types
+bot = telebot.TeleBot('6968154187:AAE8UgrqL5IvxanIEYArapblE7UDhkE0yzo')
+
+@bot.message_handler(commands=['start'])
+def start(message):
+
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton("узнать инфу")
+    markup.add(btn1)
+    bot.send_message(message.from_user.id, "ну привет мясной мешок😼, хочешь я тебе расскажу про ДЕТЕЙ", reply_markup=markup)
+
+@bot.message_handler(content_types=['text'])
+def get_text_messages(message):
+
+    if message.text == 'узнать инфу':
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #создание новых кнопок
+        btn1 = types.KeyboardButton('почему ДЕТЕЙ стал популярной игрой?')
+        btn2 = types.KeyboardButton('какой по итогу сюжет?')
+        btn3 = types.KeyboardButton('будет ли 3д ремейк?')
+        markup.add(btn1, btn2, btn3)
+        bot.send_message(message.from_user.id, 'что ты хочешь знать о шедевре геймдева?', reply_markup=markup) #ответ бота
+
+
+    elif message.text == 'почему ДЕТЕЙ стал популярной игрой?':
+        bot.send_message(message.from_user.id, 'ты не знаешь ДЕТЕЙ? Это же знаменитая игра на питоне, она лучше чем всякие там ГТА и РДР2 в 100000 раз. Пройди ее, и все поймешь ', parse_mode='Markdown')
+
+    elif message.text == 'какой по итогу сюжет?':
+        bot.send_message(message.from_user.id, 'ты неизвестный, на момент выхода игры, герой. Ты кушаешь детей, поэтому игра и называется ДЕТЕЙ. У тебя есть несколько концовок, все зависят от твоего выбора, но есть и каноничная, но нам пока ничего неизвестно', parse_mode='Markdown')
+
+    elif message.text == 'будет ли 3д ремейк?':
+        bot.send_message(message.from_user.id, 'я не знаю, но скорее всего, после выхода полной 1-й части с полным сюжетом, разработчики будут переделывать сюжет и игру на 3д движок', parse_mode='Markdown')
+
+
+bot.polling(none_stop=True, interval=0) #обязательная для работы бота часть
